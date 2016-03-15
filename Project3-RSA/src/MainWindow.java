@@ -19,12 +19,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTextField txtPrivateKeyPath;
 	private JTextField txtPublicKeyPath;
+	private JTextField txtInputTextPath;
 
 	/**
 	 * Launch the application.
@@ -82,8 +84,8 @@ public class MainWindow {
 		JLabel lblKeypairHelpText = new JLabel("Please enter file paths to load, or generate a new key pair.");
 		keypair_panel.add(lblKeypairHelpText);
 		
-		JPanel panel = new JPanel();
-		keypair_panel.add(panel);
+		JPanel keypair_button_panel = new JPanel();
+		keypair_panel.add(keypair_button_panel);
 		
 		JButton btnNewKeypair = new JButton("New Keypair");
 		btnNewKeypair.addActionListener(new ActionListener() {
@@ -91,13 +93,42 @@ public class MainWindow {
 				createKeypairDialog();
 			}
 		});
-		panel.add(btnNewKeypair);
+		keypair_button_panel.add(btnNewKeypair);
 		
 		JButton btnLoadKeypair = new JButton("Load Keypair");
-		panel.add(btnLoadKeypair);
+		keypair_button_panel.add(btnLoadKeypair);
 		
-		JPanel status_panel = new JPanel();
-		frame.getContentPane().add(status_panel);
+		JPanel blocking_panel = new JPanel();
+		frame.getContentPane().add(blocking_panel);
+		blocking_panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JTextPane txtpnBlocktext = new JTextPane();
+		txtpnBlocktext.setText("Write your message to be encrypted here, or paste an encrypted and blocked file here to decrypt with the specified private/public keys.");
+		blocking_panel.add(txtpnBlocktext);
+		
+		JPanel function_panel = new JPanel();
+		blocking_panel.add(function_panel);
+		function_panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel lblInputTextPath = new JLabel("Input Text File Path: ");
+		function_panel.add(lblInputTextPath);
+		
+		txtInputTextPath = new JTextField();
+		txtInputTextPath.setText("Insert path to textfile here");
+		function_panel.add(txtInputTextPath);
+		txtInputTextPath.setColumns(10);
+		
+		JButton btnEncryptTextFile = new JButton("Encrypt Text File");
+		function_panel.add(btnEncryptTextFile);
+		
+		JButton btnDecryptTextFile = new JButton("Decrypt Text File");
+		function_panel.add(btnDecryptTextFile);
+		
+		JButton btnEncryptTextInput = new JButton("Encrypt Text Input");
+		function_panel.add(btnEncryptTextInput);
+		
+		JButton btnDecryptTextInput = new JButton("Decrypt Text Input");
+		function_panel.add(btnDecryptTextInput);
 	}
 	
 	private KeypairDialog createKeypairDialog() {
