@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JOptionPane;
 import java.io.IOException;
+import java.io.File;
 
 public class MainWindow {
 
@@ -34,6 +35,9 @@ public class MainWindow {
  //MAIN PROGRAM DATA FIELDS, static, so they can be accessed anywhere in program!
  protected static KeyFile privateKey = null;
  protected static KeyFile publicKey = null; 
+ public static final String RESOURCE_FILE_NAME = "primes.rsc";
+ protected static String basePath = new File("").getAbsolutePath() + "/../";
+ protected static ResourceFile resFile = null;
 
  /**
   * Launch the application.
@@ -57,6 +61,12 @@ public class MainWindow {
  public MainWindow() {
   initialize();
   instance = this;
+  try {
+    resFile = new ResourceFile(basePath+RESOURCE_FILE_NAME);
+  } catch (IOException e) {
+    JOptionPane.showMessageDialog(frame, "Could not load Primes Resource File!");
+       e.printStackTrace();
+  }
  }
 
  /**
@@ -117,7 +127,7 @@ public class MainWindow {
        JOptionPane.showMessageDialog(frame, "You have specified a nonexistent filepath, or an error occured during loading. Please try again.");
        e.printStackTrace();
      }
-     JOptionPane.showMessageDialog(frame, "Keypair loaded successfully. Values: e: ");
+     JOptionPane.showMessageDialog(frame, "Keypair loaded successfully. Values: e: "+publicKey.getPrime1()+" d: "+privateKey.getPrime1()+" n: "+privateKey.getPrime2());
    }
   });
   keypair_button_panel.add(btnLoadKeypair);

@@ -426,6 +426,14 @@ public class HUI {
   return 0;
  }
  
+ public String toString() {
+   String ret = "";
+   for (int x : storage) {
+     ret += x;
+   }
+   return ret;
+ }
+ 
  //getters and setters
  public int[] getArray() {
   return storage;

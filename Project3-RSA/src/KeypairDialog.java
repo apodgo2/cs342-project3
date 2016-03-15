@@ -30,6 +30,8 @@ public class KeypairDialog extends JDialog {
  private final JPanel contentPanel = new JPanel();
  private JTextField txtResourceFilePath;
  private static boolean alreadyExists = false;
+ private static JTextArea txtrPrime1;
+ private static JTextArea txtrPrime2;
  
 
  /**
@@ -56,7 +58,7 @@ public class KeypairDialog extends JDialog {
      split_top_panel.add(lblPrime1);
     }
     {
-     JTextArea txtrPrime1 = new JTextArea();
+     txtrPrime1 = new JTextArea();
      txtrPrime1.setText("prime1");
      split_top_panel.add(txtrPrime1);
     }
@@ -65,7 +67,7 @@ public class KeypairDialog extends JDialog {
      split_top_panel.add(lblPrime2);
     }
     {
-     JTextArea txtrPrime2 = new JTextArea();
+     txtrPrime2 = new JTextArea();
      txtrPrime2.setText("prime2");
      split_top_panel.add(txtrPrime2);
     }
@@ -76,6 +78,15 @@ public class KeypairDialog extends JDialog {
     split_bottom_panel.setLayout(new BoxLayout(split_bottom_panel, BoxLayout.PAGE_AXIS));
     {
      JButton btnGeneratePrimes = new JButton("Generate Primes");
+     btnGeneratePrimes.addActionListener(new ActionListener() {
+   public void actionPerformed(ActionEvent arg0) {
+    //select primes
+     HUI choice = MainWindow.resFile.selectPrime();
+     txtrPrime1.setText(choice.toString());
+     choice = MainWindow.resFile.selectPrime(choice);
+     txtrPrime2.setText(choice.toString());
+   }
+  });
      split_bottom_panel.add(btnGeneratePrimes);
     }
     {
@@ -85,7 +96,7 @@ public class KeypairDialog extends JDialog {
     {
      txtResourceFilePath = new JTextField();
      txtResourceFilePath.setEditable(false);
-     txtResourceFilePath.setText("Insert Path Here");
+     txtResourceFilePath.setText(MainWindow.basePath + MainWindow.RESOURCE_FILE_NAME);
      split_bottom_panel.add(txtResourceFilePath);
      txtResourceFilePath.setColumns(10);
     }
