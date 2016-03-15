@@ -1,15 +1,32 @@
+/*
+ * Project 3 - RSA Algorithm
+ * By Nick Zakharov and Andrew Podgorski
+ * CS 342 - UIC - Spring 2016
+ * ---
+ * Input File class
+ * Main class for all input classes
+ */
+
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class InputFile {
-	private String path = "";
-	private String content = "";
-	boolean isInvalid = false;
+	protected String path = "";
+	protected String content = "";
+	protected boolean isInvalid = false;
+	protected boolean isWriteable = false;
 
 	public InputFile(String path) {
 		this.path = path;
-		parse();
+		this.isWriteable = true;
+		read();
+	}
+	public InputFile(String path, boolean isWriteable) {
+		this.path = path;
+		this.isWriteable = isWriteable;
+		read();
 	}
 	
 	public void read() {
@@ -40,6 +57,7 @@ public class InputFile {
 	}
 	
 	public void write() {
+		if (isWriteable) {
 		FileWriter out = null;
 	    
 		try {
@@ -61,6 +79,7 @@ public class InputFile {
 				}
 		       }
 		    }
+		}
 	}
 	
 	public String getPath() {
