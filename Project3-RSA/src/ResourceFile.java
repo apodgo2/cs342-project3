@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class ResourceFile extends InputFile {
  protected ArrayList<HUI> primes;
  
- public ResourceFile(String path) {
+ public ResourceFile(String path) throws IOException {
   super(path, false);
   parse();
  }

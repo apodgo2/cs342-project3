@@ -20,44 +20,36 @@ public class InputFile {
  protected boolean isWriteable = false;
  protected File file = null;
 
- public InputFile(String path) {
+ public InputFile(String path) throws IOException {
   this.path = path;
   this.isWriteable = true;
   this.file = new File(path);
   read();
  }
- public InputFile(String path, boolean isWriteable) {
+ public InputFile(String path, boolean isWriteable) throws IOException {
   this.path = path;
   this.isWriteable = isWriteable;
   this.file = new File(path);
   read();
  }
  
- public void read() {
-  FileReader in = null;
-     
-  try {
+ public void read() throws IOException {
+   FileReader in = null;
+   
    in = new FileReader(path);
-         
-         int c;
-         while ((c = in.read()) != -1) {
-            content += c;
-         }
-      } catch (IOException e) {
-       System.out.println("You have specified an inappropriate filepath!");
-    e.printStackTrace();
-    path = null;
-    content = null;
-   }finally {
-         if (in != null) {
-            try {
-     in.close();
-    } catch (IOException e) {
-     // TODO Auto-generated catch block
-     e.printStackTrace();
-    }
-         }
-      }
+   
+   int c;
+   while ((c = in.read()) != -1) {
+     content += c;
+   }
+   if (in != null) {
+     try {
+       in.close();
+     } catch (IOException e) {
+       // TODO Auto-generated catch block
+       e.printStackTrace();
+     }
+   }
  }
  
  public void write() {
@@ -101,6 +93,11 @@ public class InputFile {
  
  //override this:
  public void parse() {
-  read();
+   //This method is supposed to be overridden, so it just performs the same thing as Read in InputFile. Not useful for InputFile, but very useful in other classes.
+   try {
+     read();
+   } catch (IOException e) {
+     e.printStackTrace();
+   }
  }
 }

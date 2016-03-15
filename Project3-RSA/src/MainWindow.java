@@ -20,13 +20,20 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.swing.JOptionPane;
+import java.io.IOException;
 
 public class MainWindow {
 
+ private static MainWindow instance = null;//There should only ever be one MainWindow, so I'll set up a Singleton pattern
  private JFrame frame;
  private JTextField txtPrivateKeyPath;
  private JTextField txtPublicKeyPath;
  private JTextField txtInputTextPath;
+ 
+ //MAIN PROGRAM DATA FIELDS, static, so they can be accessed anywhere in program!
+ protected static KeyFile privateKey = null;
+ protected static KeyFile publicKey = null; 
 
  /**
   * Launch the application.
@@ -49,6 +56,7 @@ public class MainWindow {
   */
  public MainWindow() {
   initialize();
+  instance = this;
  }
 
  /**
@@ -98,6 +106,20 @@ public class MainWindow {
   keypair_button_panel.add(btnNewKeypair);
   
   JButton btnLoadKeypair = new JButton("Load Keypair");
+  btnLoadKeypair.addActionListener(new ActionListener() {
+   public void actionPerformed(ActionEvent arg0) {
+     try {
+       publicKey = new KeyFile(txtPublicKeyPath.getText(), true);
+       privateKey = new KeyFile(txtPrivateKeyPath.getText(), false);
+     } catch (IOException e) {
+       publicKey = null;
+       privateKey = null;
+       JOptionPane.showMessageDialog(frame, "You have specified a nonexistent filepath, or an error occured during loading. Please try again.");
+       e.printStackTrace();
+     }
+     JOptionPane.showMessageDialog(frame, "Keypair loaded successfully. Values: e: ");
+   }
+  });
   keypair_button_panel.add(btnLoadKeypair);
   
   JPanel blocking_panel = new JPanel();
@@ -144,5 +166,12 @@ public class MainWindow {
   }
   return dialog;
  }
-
+ 
+ public JFrame getFrame() {
+   return frame;
+ }
+ 
+ public static MainWindow getInstance() {
+   return instance;
+ }
 }
