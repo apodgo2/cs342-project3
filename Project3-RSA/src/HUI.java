@@ -402,4 +402,9 @@ public class HUI {
 		return 0;
 	}
 	
+	//getters and setters
+	public int[] getArray() {
+		return storage;
+	}
+	
 }
