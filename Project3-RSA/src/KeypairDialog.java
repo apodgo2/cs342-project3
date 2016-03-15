@@ -23,10 +23,12 @@ import javax.swing.JSplitPane;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class KeypairDialog extends JDialog {
 	private static final long serialVersionUID = 5082502657415599101L;
 	private final JPanel contentPanel = new JPanel();
+	private JTextField txtResourceFilePath;
 
 	/**
 	 * Create the dialog.
@@ -68,9 +70,21 @@ public class KeypairDialog extends JDialog {
 			{
 				JPanel split_bottom_panel = new JPanel();
 				splitPane.setRightComponent(split_bottom_panel);
+				split_bottom_panel.setLayout(new BoxLayout(split_bottom_panel, BoxLayout.PAGE_AXIS));
 				{
 					JButton btnGeneratePrimes = new JButton("Generate Primes");
 					split_bottom_panel.add(btnGeneratePrimes);
+				}
+				{
+					JLabel lblLocationOfPrime = new JLabel("Location of Prime # Resource File: ");
+					split_bottom_panel.add(lblLocationOfPrime);
+				}
+				{
+					txtResourceFilePath = new JTextField();
+					txtResourceFilePath.setEditable(false);
+					txtResourceFilePath.setText("Insert Path Here");
+					split_bottom_panel.add(txtResourceFilePath);
+					txtResourceFilePath.setColumns(10);
 				}
 			}
 		}
