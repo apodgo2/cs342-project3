@@ -294,6 +294,11 @@ public class HUI {
   }while((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0));
   */return temp;
  }
+ 
+ //multiply our storage by the toMulBy storage.
+ public void mul(HUI toMulBy) {
+   this.storage = arrayMul(this.storage, toMulBy.getArray());
+ }
 
  public static int[] arrayMul(int[] x, int[] y)
  {
