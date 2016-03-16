@@ -197,7 +197,7 @@ public class HUI {
   return temp;
  }
 
- public static int[] arraySub(int[] x, int[] y)
+  public static int[] arraySub(int[] x, int[] y)
  {
   if (arrayIsEqual(x,y) == -1)
   {
@@ -222,11 +222,11 @@ public class HUI {
   int currentIntY = 0;
   int currentSum = 0;
   int carryInt = 0;
-  for (int i = 0; i < x.length; i++)
-  {
-   System.out.printf("Index of X %d, is %d\n", i, x[i]);
-  }
-  /*do
+  //for (int i = 0; i < x.length; i++)
+  //{
+   //System.out.printf("Index of X %d, is %d\n", i, x[i]);
+  //}
+  do
   {
    if (currentIndexX < (x.length))
    {
@@ -238,6 +238,7 @@ public class HUI {
     else
     {
      currentIntX = x[currentIndexX];
+
     }
    }
    else if (currentIndexX >= (x.length))
@@ -263,22 +264,25 @@ public class HUI {
    //System.out.printf("Updating carryInt: %d.\n", carryInt);
    currentSum = currentIntX - currentIntY - carryInt;
    //System.out.printf("Current Sum: %d.\n", currentSum);
+
    if (currentSum > -1)
    {
     carryInt = 0;
    }
    else if ((currentSum < 0) && ((currentIndexY < y.length) || (currentIndexX < x.length)) )
    {
-    System.out.printf("Carrying over, currentSum: %d, currentYIndex: %d %d, currentXIndex: %d %d, carryInt; %d\n", currentSum, currentIndexY, y.length, currentIndexX, x.length, carryInt);
+    //System.out.printf("Carrying over, currentSum: %d, currentYIndex: %d %d, currentXIndex: %d %d, carryInt; %d\n", currentSum, currentIndexY, y.length, currentIndexX, x.length, carryInt);
     carryInt = 1;
     currentSum = currentSum + 10;
     //System.out.printf("Done carrying over, currentSum: %d, carryInt; %d\n", currentSum, carryInt);
+
    }
    else 
    {
     //exit here
     carryInt = 0;
     System.out.printf("Answer is negative\n");
+
    }
    temp[currentIndexT] = currentSum;
    currentIndexT++;
@@ -286,21 +290,16 @@ public class HUI {
    currentIndexY++;
    if ((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0))
    {
-    System.out.printf("Increasing size, currentX: %d %d, currentY: %d %d, carryInt; %d\n", currentIndexX, x.length, currentIndexY,y.length, carryInt);
+    //System.out.printf("Increasing size, currentX: %d %d, currentY: %d %d, carryInt; %d\n", currentIndexX, x.length, currentIndexY,y.length, carryInt);
     temp = arrayIncreaseSize(temp);
    }
    
    
   }while((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0));
-  */return temp;
- }
- 
- //multiply our storage by the toMulBy storage.
- public void mul(HUI toMulBy) {
-   this.storage = arrayMul(this.storage, toMulBy.getArray());
+  return temp;
  }
 
- public static int[] arrayMul(int[] x, int[] y)
+public static int[] arrayMul(int[] x, int[] y)
  {
   int[] temp = new int[1];
   temp[0] = 0;
@@ -338,6 +337,12 @@ public class HUI {
   return temp;
  }
 
+//multiply our storage by the toMulBy storage.
+public void mul(HUI toMulBy) {
+  this.storage = arrayMul(this.storage, toMulBy.getArray());
+}
+
+
  private static int[] arrayCopy(int[] x)
  {
   int[] temp = new int[x.length];
@@ -359,31 +364,45 @@ public class HUI {
   return temp;
  }
  
- public static int[] arrayDiv(int[] divident, int[] divisor)
+public int[] arrayDiv(int[] divident, int[] divisor)
  {
-  int[] quotient = new int[divident.length];
-  quotient[0] = -1;
+
+  int[] quotient = new int[1];
+  quotient[0] = 0;
   int[] remainder = new int[0];
+
   //assumption: if the user inputs [0,0,0,0,0,0,0] as the divisor this function will fail
   if ((divisor.length == 1) && (divisor[0] == 0))
   {
    //Can't divide by zero. throw exception
    return quotient;
   }
-  for(int i = 0; i < divident.length; i++)
+  int i,k;
+  for(i = divident.length-1,k=0; i >= 0; i--,k++)
   {
    //arrayIncreaseSize(remainder);
    remainder = shiftLeft(remainder);
+   quotient = arrayIncreaseSize(quotient);
    remainder[0] = divident[i];
+   //System.out.printf("1 remainder length: %d, divisor length: %d: isEqual: %d\n", remainder.length, divisor.length, arrayIsEqual(remainder,divisor));
+
+   //for (int k = 0; k < remainder.length; k++)
+   //{
+    //System.out.printf("remainder in div index: %d, value %d, i: %d, length: %d\n", k, remainder[k], i, divident.length);
+   //}
+   //System.out.printf("remainder length: %d - %d, divisor length: %d: isEqual: %d\n", remainder.length,remainder[0], divisor.length, arrayIsEqual(remainder,divisor));
+
    while(arrayIsEqual(remainder,divisor)!= -1)
    {
-    
+    //System.out.printf("While remainder length: %d, divisor length: %d: isEqual: %d\n", remainder.length, divisor.length, arrayIsEqual(remainder,divisor));
     remainder = arraySub(remainder,divisor);
-    quotient[i] = quotient[i] + 1;
+    quotient[k] = quotient[k] + 1;
+    //System.out.printf("Quotient[i]: %d, remainder: %d: %d-%d\n",quotient[i], remainder[0], divisor[1],divisor[0]);
+
    }
    
   }
-  return quotient;
+  return remainder;
  }
 
  public static int[] arrayMod(int[] x, int[] y)
@@ -402,33 +421,48 @@ public class HUI {
   return temp;
  }
  
- public static int arrayIsEqual(int[] x, int[] y)
+public static int arrayIsEqual(int[] x, int[] y)
  {
-  if (x.length > y.length)
+  int diff = x.length-1;
+  if (x.length > y.length) 
   {
-   return 1;
-  }
-  else if (x.length < y.length)
-  {
-   return -1;
-  }
-  else
-  {
+   diff = y.length-1;
    int i;
-   for (i = x.length-1; i >= 0; i--)
+   for (i = x.length-1; (i > 0) || (i > y.length); i--)
    {
-    if (x[i] > y[i])
+    if ( x[i] > 0)
     {
      return 1;
     }
-    else if (x[i] < y[i])
+   }
+  }
+  else if (x.length < y.length)
+  {
+   diff = x.length-1;
+   int i;
+   for (i = y.length-1; (i > 0) || (i > x.length); i--)
+   {
+    if ( y[i] > 0)
     {
      return -1;
     }
-   }
-   
+   }  
   }
+  int i;
+  for (i = diff; i >= 0; i--)
+  {
+   if (x[i] > y[i])
+   {
+    return 1;
+   }
+   else if (x[i] < y[i])
+   {
+    return -1;
+   }
+  }
+  //System.out.printf("Returning in else\n");
   return 0;
+
  }
  
  public String toString() {
@@ -443,7 +477,7 @@ public class HUI {
  public int[] getArray() {
   return storage;
  }
- 
+
  //returns true if there is only zeroes in HUI
  public boolean isZero() {
    for (int x : storage) {

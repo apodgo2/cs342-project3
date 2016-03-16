@@ -80,7 +80,7 @@ public class KeypairDialog extends JDialog {
      JButton btnGeneratePrimes = new JButton("Generate Primes");
      btnGeneratePrimes.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent arg0) {
-    //select primes
+    //select primes from resource file
      HUI choice = MainWindow.resFile.selectPrime();
      txtrPrime1.setText(choice.toString());
      choice = MainWindow.resFile.selectPrime(choice);
@@ -110,7 +110,9 @@ public class KeypairDialog extends JDialog {
     JButton okButton = new JButton("OK");
     okButton.addActionListener(new ActionListener() {
      public void actionPerformed(ActionEvent e) {
-      //TODO: Fill this in, process primes
+       alreadyExists = false;
+      //process primes
+       //TODO USE RSA CLASS TO PROCESS PRIMES INTO KEYPAIR
       //close the dialog:
       KeypairDialog.this.setVisible(false);
       KeypairDialog.this.dispatchEvent(new WindowEvent(
@@ -118,12 +120,6 @@ public class KeypairDialog extends JDialog {
      }
     });
     okButton.setActionCommand("OK");
-    okButton.addActionListener(new ActionListener() {
-   public void actionPerformed(ActionEvent arg0) {
-    alreadyExists = false;
-    //TODO: perform OK actions, build keypair, etc.
-   }
-  });
     buttonPane.add(okButton);
     getRootPane().setDefaultButton(okButton);
    }
