@@ -197,146 +197,146 @@ public class HUI {
   return temp;
  }
 
- public static int[] arraySub(int[] x, int[] y)
- {
-  if (arrayIsEqual(x,y) == -1)
-  {
-   int[] temp = new int[1];
-   temp[0] = -1;
-   //throw an exception
-   return temp;
-  }
-  else if (arrayIsEqual(x,y) == 0)
-  {
-   //numbers are equals
-   int[] temp = new int[1];
-   temp[0] = 0;
-   
-   return temp;
-  }
-  int[] temp = new int[1];
-  int currentIndexX = 0;
-  int currentIndexY = 0;
-  int currentIndexT = 0;
-  int currentIntX = 0;
-  int currentIntY = 0;
-  int currentSum = 0;
-  int carryInt = 0;
-  for (int i = 0; i < x.length; i++)
-  {
-   System.out.printf("Index of X %d, is %d\n", i, x[i]);
-  }
-  /*do
-  {
-   if (currentIndexX < (x.length))
-   {
-    if ((x[currentIndexX] > 9) || (x[currentIndexX] < 0))
-    {
-     System.out.printf("X Not an integer: %d %d %d\n", currentIntX, currentIndexX, x.length); 
-     // Exit to do
-    }
-    else
-    {
-     currentIntX = x[currentIndexX];
-    }
-   }
-   else if (currentIndexX >= (x.length))
-   {
-    //System.out.printf("CurrentIntX is out of range.\n");
-    currentIntX = 0;
-   }
-   if (currentIndexY < (y.length))
-   {
-    currentIntY = y[currentIndexY];
-    //System.out.printf("Updating currentIntY: %d.\n", currentIntY);
-    if ((currentIntY > 9) || (currentIntY < 0))
-    {
-     System.out.printf("Y Not an integer: %d\n", currentIntY); 
-     // Exit to do
-    }
-   }
-   else if (currentIndexY >= (y.length))
-   {
-    //System.out.printf("CurrentIntY is out of range.\n");
-    currentIntY = 0;
-   }
-   //System.out.printf("Updating carryInt: %d.\n", carryInt);
-   currentSum = currentIntX - currentIntY - carryInt;
-   //System.out.printf("Current Sum: %d.\n", currentSum);
-   if (currentSum > -1)
-   {
-    carryInt = 0;
-   }
-   else if ((currentSum < 0) && ((currentIndexY < y.length) || (currentIndexX < x.length)) )
-   {
-    System.out.printf("Carrying over, currentSum: %d, currentYIndex: %d %d, currentXIndex: %d %d, carryInt; %d\n", currentSum, currentIndexY, y.length, currentIndexX, x.length, carryInt);
-    carryInt = 1;
-    currentSum = currentSum + 10;
-    //System.out.printf("Done carrying over, currentSum: %d, carryInt; %d\n", currentSum, carryInt);
-   }
-   else 
-   {
-    //exit here
-    carryInt = 0;
-    System.out.printf("Answer is negative\n");
-   }
-   temp[currentIndexT] = currentSum;
-   currentIndexT++;
-   currentIndexX++;
-   currentIndexY++;
-   if ((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0))
-   {
-    System.out.printf("Increasing size, currentX: %d %d, currentY: %d %d, carryInt; %d\n", currentIndexX, x.length, currentIndexY,y.length, carryInt);
-    temp = arrayIncreaseSize(temp);
-   }
-   
-   
-  }while((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0));
-  */return temp;
- }
- 
- //multiply our storage by the toMulBy storage.
- public void mul(HUI toMulBy) {
-   this.storage = arrayMul(this.storage, toMulBy.getArray());
- }
+ 	public int[] arraySub(int[] x, int[] y)
+	{
+		if (arrayIsEqual(x,y) == -1)
+		{
+			int[] temp = new int[1];
+			temp[0] = -1;
+			//throw an exception
+			return temp;
+		}
+		else if (arrayIsEqual(x,y) == 0)
+		{
+			//numbers are equals
+			int[] temp = new int[1];
+			temp[0] = 0;
+			
+			return temp;
+		}
+		int[] temp = new int[1];
+		int currentIndexX = 0;
+		int currentIndexY = 0;
+		int currentIndexT = 0;
+		int currentIntX = 0;
+		int currentIntY = 0;
+		int currentSum = 0;
+		int carryInt = 0;
+		//for (int i = 0; i < x.length; i++)
+		//{
+			//System.out.printf("Index of X %d, is %d\n", i, x[i]);
+		//}
+		do
+		{
+			if (currentIndexX < (x.length))
+			{
+				if ((x[currentIndexX] > 9) || (x[currentIndexX] < 0))
+				{
+					System.out.printf("X Not an integer: %d %d %d\n", currentIntX, currentIndexX, x.length);	
+					// Exit to do
+				}
+				else
+				{
+					currentIntX = x[currentIndexX];
 
- public static int[] arrayMul(int[] x, int[] y)
- {
-  int[] temp = new int[1];
-  temp[0] = 0;
-  
-  if ( (arrayIsEqual(x, temp) == 0) || (arrayIsEqual(y,temp) == 0) )
-  {
-   // throw an exception
-   return temp;
-  }
-  System.out.printf("Not multiplying by zero.\n");
-  temp = new int[x.length + y.length];
-  int indexX,indexY, carryInt;
-  for (indexX = 0; indexX < x.length; indexX++)
-  {
-   carryInt = 0;
-   for (indexY = 0; indexY < y.length; indexY++)
-   {
-    temp[indexX + indexY] += carryInt + (x[indexX] * y[indexY]);
-    if (temp[indexX + indexY] > 9)
-    {
-     //System.out.printf("Carrying an int.\n");
-     carryInt = temp[indexX + indexY] / 10;
-     temp[indexX + indexY] = temp[indexX + indexY] - (10*carryInt);
-    }
-    else
-    {
-     carryInt = 0;
-    }
-   }
-  temp[indexX + y.length] += carryInt;
-   
-  }
-  
-  
-  return temp;
- }
+				}
+			}
+			else if (currentIndexX >= (x.length))
+			{
+				//System.out.printf("CurrentIntX is out of range.\n");
+				currentIntX = 0;
+			}
+			if (currentIndexY < (y.length))
+			{
+				currentIntY = y[currentIndexY];
+				//System.out.printf("Updating currentIntY: %d.\n", currentIntY);
+				if ((currentIntY > 9) || (currentIntY < 0))
+				{
+					System.out.printf("Y Not an integer: %d\n", currentIntY);	
+					// Exit to do
+				}
+			}
+			else if (currentIndexY >= (y.length))
+			{
+				//System.out.printf("CurrentIntY is out of range.\n");
+				currentIntY = 0;
+			}
+			//System.out.printf("Updating carryInt: %d.\n", carryInt);
+			currentSum = currentIntX - currentIntY - carryInt;
+			//System.out.printf("Current Sum: %d.\n", currentSum);
+
+			if (currentSum > -1)
+			{
+				carryInt = 0;
+			}
+			else if ((currentSum < 0) && ((currentIndexY < y.length) || (currentIndexX < x.length)) )
+			{
+				//System.out.printf("Carrying over, currentSum: %d, currentYIndex: %d %d, currentXIndex: %d %d, carryInt; %d\n", currentSum, currentIndexY, y.length, currentIndexX, x.length, carryInt);
+				carryInt = 1;
+				currentSum = currentSum + 10;
+				//System.out.printf("Done carrying over, currentSum: %d, carryInt; %d\n", currentSum, carryInt);
+
+			}
+			else 
+			{
+				//exit here
+				carryInt = 0;
+				System.out.printf("Answer is negative\n");
+
+			}
+			temp[currentIndexT] = currentSum;
+			currentIndexT++;
+			currentIndexX++;
+			currentIndexY++;
+			if ((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0))
+			{
+				//System.out.printf("Increasing size, currentX: %d %d, currentY: %d %d, carryInt; %d\n", currentIndexX, x.length, currentIndexY,y.length, carryInt);
+				temp = arrayIncreaseSize(temp);
+			}
+			
+			
+		}while((currentIndexX < (x.length)) || (currentIndexY < (y.length)) || (carryInt != 0));
+		return temp;
+	}
+
+public int[] arrayMul(int[] x, int[] y)
+	{
+		int[] temp = new int[1];
+		temp[0] = 0;
+		
+		if ( (arrayIsEqual(x, temp) == 0) || (arrayIsEqual(y,temp) == 0) )
+		{
+			// throw an exception
+			return temp;
+		}
+		System.out.printf("Not multiplying by zero.\n");
+		temp = new int[x.length + y.length];
+		int indexX,indexY, carryInt;
+		for (indexX = 0; indexX < x.length; indexX++)
+		{
+			carryInt = 0;
+			for (indexY = 0; indexY < y.length; indexY++)
+			{
+				temp[indexX + indexY] += carryInt + (x[indexX] * y[indexY]);
+				if (temp[indexX + indexY] > 9)
+				{
+					//System.out.printf("Carrying an int.\n");
+					carryInt = temp[indexX + indexY] / 10;
+					temp[indexX + indexY] = temp[indexX + indexY] - (10*carryInt);
+				}
+				else
+				{
+					carryInt = 0;
+				}
+			}
+		temp[indexX + y.length] += carryInt;
+			
+		}
+		
+		
+		return temp;
+	}
+
 
  private static int[] arrayCopy(int[] x)
  {
@@ -359,32 +359,46 @@ public class HUI {
   return temp;
  }
  
- public static int[] arrayDiv(int[] divident, int[] divisor)
- {
-  int[] quotient = new int[divident.length];
-  quotient[0] = -1;
-  int[] remainder = new int[0];
-  //assumption: if the user inputs [0,0,0,0,0,0,0] as the divisor this function will fail
-  if ((divisor.length == 1) && (divisor[0] == 0))
-  {
-   //Can't divide by zero. throw exception
-   return quotient;
-  }
-  for(int i = 0; i < divident.length; i++)
-  {
-   //arrayIncreaseSize(remainder);
-   remainder = shiftLeft(remainder);
-   remainder[0] = divident[i];
-   while(arrayIsEqual(remainder,divisor)!= -1)
-   {
-    
-    remainder = arraySub(remainder,divisor);
-    quotient[i] = quotient[i] + 1;
-   }
-   
-  }
-  return quotient;
- }
+public int[] arrayDiv(int[] divident, int[] divisor)
+	{
+
+		int[] quotient = new int[1];
+		quotient[0] = 0;
+		int[] remainder = new int[0];
+
+		//assumption: if the user inputs [0,0,0,0,0,0,0] as the divisor this function will fail
+		if ((divisor.length == 1) && (divisor[0] == 0))
+		{
+			//Can't divide by zero. throw exception
+			return quotient;
+		}
+		int i,k;
+		for(i = divident.length-1,k=0; i >= 0; i--,k++)
+		{
+			//arrayIncreaseSize(remainder);
+			remainder = shiftLeft(remainder);
+			quotient = arrayIncreaseSize(quotient);
+			remainder[0] = divident[i];
+			//System.out.printf("1 remainder length: %d, divisor length: %d: isEqual: %d\n", remainder.length, divisor.length, arrayIsEqual(remainder,divisor));
+
+			//for (int k = 0; k < remainder.length; k++)
+			//{
+				//System.out.printf("remainder in div index: %d, value %d, i: %d, length: %d\n", k, remainder[k], i, divident.length);
+			//}
+			//System.out.printf("remainder length: %d - %d, divisor length: %d: isEqual: %d\n", remainder.length,remainder[0], divisor.length, arrayIsEqual(remainder,divisor));
+
+			while(arrayIsEqual(remainder,divisor)!= -1)
+			{
+				//System.out.printf("While remainder length: %d, divisor length: %d: isEqual: %d\n", remainder.length, divisor.length, arrayIsEqual(remainder,divisor));
+				remainder = arraySub(remainder,divisor);
+				quotient[k] = quotient[k] + 1;
+				//System.out.printf("Quotient[i]: %d, remainder: %d: %d-%d\n",quotient[i], remainder[0], divisor[1],divisor[0]);
+
+			}
+			
+		}
+		return remainder;
+	}
 
  public static int[] arrayMod(int[] x, int[] y)
  {
@@ -402,34 +416,49 @@ public class HUI {
   return temp;
  }
  
- public static int arrayIsEqual(int[] x, int[] y)
- {
-  if (x.length > y.length)
-  {
-   return 1;
-  }
-  else if (x.length < y.length)
-  {
-   return -1;
-  }
-  else
-  {
-   int i;
-   for (i = x.length-1; i >= 0; i--)
-   {
-    if (x[i] > y[i])
-    {
-     return 1;
-    }
-    else if (x[i] < y[i])
-    {
-     return -1;
-    }
-   }
-   
-  }
-  return 0;
- }
+public int arrayIsEqual(int[] x, int[] y)
+	{
+		int diff = x.length-1;
+		if (x.length > y.length) 
+		{
+			diff = y.length-1;
+			int i;
+			for (i = x.length-1; (i > 0) || (i > y.length); i--)
+			{
+				if ( x[i] > 0)
+				{
+					return 1;
+				}
+			}
+		}
+		else if (x.length < y.length)
+		{
+			diff = x.length-1;
+			int i;
+			for (i = y.length-1; (i > 0) || (i > x.length); i--)
+			{
+				if ( y[i] > 0)
+				{
+					return -1;
+				}
+			}		
+		}
+		int i;
+		for (i = diff; i >= 0; i--)
+		{
+			if (x[i] > y[i])
+			{
+				return 1;
+			}
+			else if (x[i] < y[i])
+			{
+				return -1;
+			}
+		}
+		//System.out.printf("Returning in else\n");
+		return 0;
+
+	}
  
  public String toString() {
    String ret = "";
