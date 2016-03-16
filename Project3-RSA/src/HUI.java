@@ -420,6 +420,10 @@ public int[] arrayDiv(int[] divident, int[] divisor)
   }
   return temp;
  }
+ //modulos this with toMod
+ public void mod(HUI toMod) {
+   this.storage = arrayMod(this.storage, toMod.getArray());
+ }
  
 public static int arrayIsEqual(int[] x, int[] y)
  {

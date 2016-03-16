@@ -9,22 +9,33 @@
 
 
 public class RSA {
-  HUI p; //prime #1
-  HUI q; //prime #2
-  HUI n; //p*q
-  int phi; //Euler Totient Function, derived from p,q using Extended Euclidian Algo.
-  HUI e; //Ósome arbitrary number that is less than n and relatively prime to ?(phi)Ó
-  HUI d; //satisfies (e * d) mod = 1
+  protected HUI p; //prime #1
+  protected HUI q; //prime #2
+  protected HUI n; //p*q
+  protected HUI phi; //Euler Totient Function, derived from p,q using Extended Euclidian Algo.
+  protected HUI e; //Ósome arbitrary number that is less than n and relatively prime to ?(phi)Ó
+  protected HUI d; //satisfies (e * d) mod = 1
   
+  //this constructor is called when the user generates or specifies their own primes (still gotta add this one to the GUI handlers.)
   public RSA(HUI p, HUI q) {
     this.p = p;
     this.q = q;
     this.n = new HUI(HUI.arrayMul(p.getArray(), q.getArray()));
+    //TODO: calculate phi, calculate e, calculate d
+    //this.phi = 
   }
   
-  //public Block processBlock(Block b, HUI exp) {
-  //  b.getArray
-  //}
+  //This constructor is called when the user loads their own key files (code already in GUI class) DONE! just need to fill out the constructor, see line 133 of MainWindow
+  public RSA(KeyFile privateKey, KeyFile publicKey) {
+    //TODO: calculate all variables
+  }
+  
+  
+  //This is where all the encryption happens
+  public Block processBlock(Block b, HUI exp) {
+    //C = M^e mod n
+    return new Block(new HUI(HUI.arrayMod(HUI.exponentiate(b.getHUI(), exp).getArray(), n.getArray())));
+  }
   
   public HUI getQ() {
     return q;
@@ -35,7 +46,7 @@ public class RSA {
   public HUI getN() {
     return n;
   }
-  public int getPhi() {
+  public HUI getPhi() {
     return phi;
   }
   public HUI getE() {

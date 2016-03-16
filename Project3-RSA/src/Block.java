@@ -20,7 +20,7 @@ public class Block {
  }
  
  public char[] getChars() {
-  char[] builtChars = new char[(storage.getArray().length/2)+1];//0123456
+  char[] builtChars = new char[(storage.getArray().length/2)+1];
   int currentIndex = 0;
   int charIndex = 0;
   int lastInt = -1;

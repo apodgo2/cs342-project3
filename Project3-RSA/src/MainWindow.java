@@ -36,8 +36,10 @@ public class MainWindow {
  protected static KeyFile privateKey = null;
  protected static KeyFile publicKey = null; 
  public static final String RESOURCE_FILE_NAME = "primes.rsc";
+ public static final int BLOCK_SIZE = 8;
  protected static String basePath = new File("").getAbsolutePath() + "/../";
  protected static ResourceFile resFile = null;
+ protected static RSA rsa = null;//TODO: create the RSA with the PrivateKey and PublicKey when they are created AND create the RSA with prime numbers when they are created
 
  /**
   * Launch the application.
@@ -128,6 +130,7 @@ public class MainWindow {
        e.printStackTrace();
      }
      JOptionPane.showMessageDialog(frame, "Keypair loaded successfully. Values: e: "+publicKey.getPrime1()+" d: "+privateKey.getPrime1()+" n: "+privateKey.getPrime2());
+     rsa = new RSA(privateKey, publicKey);
    }
   });
   keypair_button_panel.add(btnLoadKeypair);
@@ -152,17 +155,23 @@ public class MainWindow {
   function_panel.add(txtInputTextPath);
   txtInputTextPath.setColumns(10);
   
+  
+  //TODO: add action handler here to grab text from our textbox and put it into BlockedTextFile, encrypt it with the RSA algorithm. make sure to write it to a file when complete with .write()
+  JButton btnEncryptTextInput = new JButton("Encrypt Text Input");
+  function_panel.add(btnEncryptTextInput);
+  
+  JButton btnDecryptTextInput = new JButton("Decrypt Text Input");
+  function_panel.add(btnDecryptTextInput);
+  
+  //NOTE: We don't have to complete these! :D
   JButton btnEncryptTextFile = new JButton("Encrypt Text File");
   function_panel.add(btnEncryptTextFile);
   
   JButton btnDecryptTextFile = new JButton("Decrypt Text File");
   function_panel.add(btnDecryptTextFile);
   
-  JButton btnEncryptTextInput = new JButton("Encrypt Text Input");
-  function_panel.add(btnEncryptTextInput);
   
-  JButton btnDecryptTextInput = new JButton("Decrypt Text Input");
-  function_panel.add(btnDecryptTextInput);
+  
  }
  
  private KeypairDialog createKeypairDialog() {
