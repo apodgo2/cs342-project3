@@ -444,4 +444,23 @@ public class HUI {
   return storage;
  }
  
+ //returns true if there is only zeroes in HUI
+ public boolean isZero() {
+   for (int x : storage) {
+     if (x != 0) {
+       return false;
+     }
+   }
+   return true;
+ }
+ 
+ //TODO: OPTIMIZE THIS WITH THE ALGORITHM FROM THE WRITEUP
+ public static HUI exponentiate(HUI base, HUI exponent) {
+   while(exponent.isZero() != true) {
+     exponent.sub(new HUI("1"));//subtract one from exponent until it's zero.
+     base.mul(base);
+   }
+   return base;
+ }
+ 
 }
